@@ -3,10 +3,10 @@ import * as ReactBootStrap from "react-bootstrap";
 
 function Table({ employees }) {
     return (
-        // <div className="datatable mt-5">
             <ReactBootStrap.Table striped bordered hover>
                 <thead>
                     <tr>
+                        <th>Image</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Phone</th>

@@ -10,7 +10,7 @@ export default {
                 console.log(res.data.results[0]);
                 return employees.map(employee => {
                     return{
-                        image: employee.image,
+                        image: employee.picture.medium,
                         firstName: employee.name.first,
                         lastName: employee.name.last,
                         phone: employee.phone,
