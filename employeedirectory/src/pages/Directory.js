@@ -8,40 +8,56 @@ import Table from "../components/Table";
 
 
 function Directory() {
-
     const [employees, setEmployees] = useState([]);
-    const [search, setSearch] = useState("");
-    const [filteredEmployees, setFilteredEmployees] = useState([]);
-
-
+    const [search, setSearch] = useState();
+    const [filtered, setFiltered] = useState([]);
+ 
     useEffect(() => {
-        loadEmployees(search);
-    }, []);
-
-
-
-    function loadEmployees(search) {
+   
         Api.getEmployees()
-            .then(employees => {
-                console.log(employees);
-                if (search.length === 0) {
-                    setEmployees(employees);
-                    console.log("hit here")
-                } else {
-                    console.log("redirecting to handleSearchChange")
-                    handleSearchChange()
-                }
-            })
-            .catch(err => console.log(err));
+        .then(employees => {
+            console.log(employees);
+            setEmployees(employees);
+            } 
+        )
+        .catch(err => console.log(err));
+      }, []);
+
+
+/// Function to handle input change upon entering name search ////////////////////////
+    const handleSearchChange = event => {
+        console.log("search initiated");
+         setSearch(event.target.value);
+        
+    };
+
+    const handleClick = event => {
+        console.log(search)
+        filterEmployees(search)
+       
     }
 
-    const renderEmployee = (employee) => {
+    /// This function will use the search state to filter through the employee state and rerender the employee list //////
+   function filterEmployees(search) {
+       console.log(search);
+       console.log(employees);
+
+            employees.filter(employees => {
+                if(employees.firstName == search || employees.lastName == search) {
+                const filteredList = [];
+                filteredList.push(employees)
+                console.log(filteredList)
+                setEmployees(filteredList)
+            }
+       });
+    }
+
+
+
+/// Will render all employees from the current employee state ////////////////////////////
+    function renderEmployee(employee) {
         return (
             <tr>
-                <td data-th="Image"
-                    src={employee.image}
-                    className="img-responsive"
-                />
                 <td>{employee.firstName}</td>
                 <td>{employee.lastName}</td>
                 <td>{employee.phone}</td>
@@ -51,33 +67,19 @@ function Directory() {
         )
     };
 
-    const handleSearchChange = function (event) {
-        console.log("search initiated")
-        const newSearch = event.target.value;
-        
-            console.log("handleSearchChange hit here.")
-        
-        setSearch(newSearch);
-    }
-
-    const filterEmployees = function(search) {
-        let filteredEmployeeList = [];
-
-    }
-
+///// Returned JSX for UI ///////////////////////////////////////////////////////    
     return (
         <div>
             <Wrapper>
                 <Header />
                 <Search
                   handleSearchChange={handleSearchChange}
-                  value={search}
+                  handleClick={handleClick}
                 />
                 <Table
                   employees={employees.map(renderEmployee)}
                 />
             </Wrapper>
-
         </div>
     )
 };
