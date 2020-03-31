@@ -7,7 +7,7 @@ import Table from "../components/Table";
 
 
 
-function Directory() {
+function Directory()  {
     const [employees, setEmployees] = useState([]);
     const [search, setSearch] = useState();
     const [filtered, setFiltered] = useState([]);
