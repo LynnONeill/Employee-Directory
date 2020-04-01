@@ -27,7 +27,10 @@ function Directory()  {
 /// Function to handle input change upon entering name search ////////////////////////
     const handleSearchChange = event => {
         console.log("search initiated");
-         setSearch(event.target.value);
+        const newSearch = event.target.value;
+        const lowerCaseSearch = newSearch.toLowerCase();
+        setSearch(lowerCaseSearch);
+        console.log(search);
         
     };
 
@@ -43,11 +46,12 @@ function Directory()  {
        console.log(employees);
 
             employees.filter(employees => {
-                if(employees.firstName == search || employees.lastName == search) {
+                if(employees.firstName.toLowerCase() === search || employees.lastName.toLowerCase() === search) {
                 const filteredList = [];
                 filteredList.push(employees)
                 console.log(filteredList)
                 setEmployees(filteredList)
+                
             }
        });
     }
