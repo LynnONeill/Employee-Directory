@@ -31,7 +31,7 @@ function Directory()  {
         const lowerCaseSearch = newSearch.toLowerCase();
         setSearch(lowerCaseSearch);
         console.log(search);
-        
+        return;
     };
 
     const handleClick = event => {
