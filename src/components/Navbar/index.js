@@ -11,6 +11,10 @@ function Navbar() {
                 className ="navbar-toggler"
                 type="button"
             />
+            <button
+                className = "navbar-toggler"
+                type="button"
+            />
         </nav>
     );
 }

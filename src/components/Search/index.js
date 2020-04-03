@@ -3,6 +3,7 @@ import "./style.css";
 import * as ReactBootStrap from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 function Search(props) {
 
     return (
@@ -30,8 +31,7 @@ function Search(props) {
                 >
                     Search
                 </button>
-            
-
+         
             </div>
         </form>
     );

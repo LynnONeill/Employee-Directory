@@ -4,13 +4,14 @@ import Wrapper from "../components/Wrapper";
 import Header from "../components/Header";
 import Search from "../components/Search";
 import Table from "../components/Table";
+import Sort from "../components/Sort"
 
 
 
 function Directory()  {
     const [employees, setEmployees] = useState([]);
+    const [fullList, setFullList] = useState([]);
     const [search, setSearch] = useState();
-    const [filtered, setFiltered] = useState([]);
  
     useEffect(() => {
    
@@ -18,6 +19,7 @@ function Directory()  {
         .then(employees => {
             console.log(employees);
             setEmployees(employees);
+            setFullList(employees);
             } 
         )
         .catch(err => console.log(err));
@@ -39,22 +41,51 @@ function Directory()  {
         filterEmployees(search)
        
     }
+    
+    const handleSort = event => {
+        console.log("handleSort log");
+        let arr = (employees.sort(sortEmployees));
+        console.log(arr)
+        setEmployees(arr)
+        console.log(employees)
+        return;
+    }
 
+    const sortEmployees = function(a, b) {
+        if(a.lastName < b.lastName) {
+            return -1;
+        }
+        if(a.lastName > b.lastName) {
+            return 1;
+        }
+        if(a.firstName < b.firstName) {
+            return -1;
+        }
+        if(a.firstName < b.lastName) {
+            return 1;
+        }
+    }
     /// This function will use the search state to filter through the employee state and rerender the employee list //////
    function filterEmployees(search) {
        console.log(search);
        console.log(employees);
-
+        if(search !== "") {
             employees.filter(employees => {
                 if(employees.firstName.toLowerCase() === search || employees.lastName.toLowerCase() === search) {
                 const filteredList = [];
                 filteredList.push(employees)
                 console.log(filteredList)
                 setEmployees(filteredList)
-                
-            }
-       });
+            }})
+          
+        } else {
+            console.log(fullList);
+            setEmployees(fullList)
+
+        }
     }
+
+  
 
 
 
@@ -79,6 +110,9 @@ function Directory()  {
                 <Search
                   handleSearchChange={handleSearchChange}
                   handleClick={handleClick}
+                />
+                <Sort 
+                handleSort={handleSort}
                 />
                 <Table
                   employees={employees.map(renderEmployee)}
