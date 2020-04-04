@@ -44,10 +44,10 @@ function Directory()  {
     
     const handleSort = event => {
         console.log("handleSort log");
-        let arr = (employees.sort(sortEmployees));
+        const arr = [...employees].sort(sortEmployees);
         console.log(arr)
         setEmployees(arr)
-        console.log(employees)
+
         return;
     }
 
@@ -92,7 +92,7 @@ function Directory()  {
 /// Will render all employees from the current employee state ////////////////////////////
     function renderEmployee(employee) {
         return (
-            <tr>
+            <tr key={employee.id}>
                 <td>{employee.firstName}</td>
                 <td>{employee.lastName}</td>
                 <td>{employee.phone}</td>
